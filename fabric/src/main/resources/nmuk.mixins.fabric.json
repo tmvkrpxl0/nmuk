@@ -1,0 +1,16 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "de.siphalor.nmuk.impl.fabric.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"MixinGameOptionsFabric"
+	],
+	"client": [
+		"MixinKeyBindingFabric"
+	],
+	"server": [],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
