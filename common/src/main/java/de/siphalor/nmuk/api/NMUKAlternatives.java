@@ -64,10 +64,10 @@ public class NMUKAlternatives {
 	 * @param alternative The alternative keybinding. This keybinding MUST NOT be registered yet
 	 */
 	public static void create(KeyBinding base, KeyBinding alternative) {
-		((KeyBindingAccessor) alternative).setTranslationKey(base.getTranslationKey() + "%" + ((NMUKKeyBinding) base).getNextChildId());
+		((KeyBindingAccessor) alternative).setTranslationKey(base.getTranslationKey() + "%" + ((NMUKKeyBinding) base).nmuk_getNextChildId());
 		((KeyBindingAccessor) alternative).setCategory(base.getCategory());
-		((NMUKKeyBinding) base).addAlternative(alternative);
-		((NMUKKeyBinding) alternative).setParent(base);
+		((NMUKKeyBinding) base).nmuk_addAlternative(alternative);
+		((NMUKKeyBinding) alternative).nmuk_setParent(base);
 		NMUKKeyBindingHelper.registerKeyBinding(alternative);
 		NMUKKeyBindingHelper.defaultAlternatives.put(base, alternative);
 	}
@@ -79,7 +79,7 @@ public class NMUKAlternatives {
 	 * @return Whether the given keybinding is an alternative
 	 */
 	public static boolean isAlternative(KeyBinding binding) {
-		return ((NMUKKeyBinding) binding).isAlternative();
+		return ((NMUKKeyBinding) binding).nmuk_isAlternative();
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class NMUKAlternatives {
 	 */
 	@Nullable
 	public static List<KeyBinding> getAlternatives(KeyBinding binding) {
-		return ((NMUKKeyBinding) binding).getAlternatives();
+		return ((NMUKKeyBinding) binding).nmuk_getAlternatives();
 	}
 
 	/**
@@ -100,6 +100,6 @@ public class NMUKAlternatives {
 	 * @return The base keyinding or <code>null</code> if the given keybinding is no alternative
 	 */
 	public static KeyBinding getBase(KeyBinding binding) {
-		return ((NMUKKeyBinding) binding).getParent();
+		return ((NMUKKeyBinding) binding).nmuk_getParent();
 	}
 }

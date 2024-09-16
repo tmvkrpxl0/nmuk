@@ -48,27 +48,31 @@ public class MixinKeyBindingEntry {
 	@Shadow
 	@Final
 	private ButtonWidget resetButton;
+
 	@Shadow
 	@Final
 	private ButtonWidget editButton;
+
 	@Mutable
 	@Shadow
 	@Final
 	private Text bindingName;
+
 	// This is a synthetic field containing the outer class instance
-	@Shadow(aliases = "field_2742", remap = false)
+	@Shadow(aliases = {"field_2742", "this$0", "f_193909_"}, remap = false)
 	@Final
 	private ControlsListWidget listWidget;
+
 	@Unique
 	private ButtonWidget alternativesButton;
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	public void onConstruct(ControlsListWidget outer, KeyBinding binding, Text text, CallbackInfo ci) {
 		NMUKKeyBinding NMUKKeyBinding = (NMUKKeyBinding) binding;
-		if (NMUKKeyBinding.isAlternative()) {
+		if (NMUKKeyBinding.nmuk_isAlternative()) {
 			bindingName = ENTRY_NAME;
 			alternativesButton = ButtonWidget.builder(Text.literal("x"), button -> {
-				((NMUKKeyBinding) NMUKKeyBinding.getParent()).removeAlternative(binding);
+				((NMUKKeyBinding) NMUKKeyBinding.nmuk_getParent()).nmuk_removeAlternative(binding);
 				NMUKKeyBindingHelper.removeKeyBinding(binding);
 				List<ControlsListWidget.KeyBindingEntry> entries = NMUKKeyBindingHelper.getControlsListWidgetEntries();
 				if (entries != null) {
@@ -86,7 +90,7 @@ public class MixinKeyBindingEntry {
 						for (int i = 0, entriesSize = entries.size(); i < entriesSize; i++) {
 							//noinspection ConstantConditions,RedundantCast,RedundantCast
 							if (entries.get(i) == (ControlsListWidget.KeyBindingEntry) (Object) this) {
-								i += ((NMUKKeyBinding) binding).getAlternativesCount();
+								i += ((NMUKKeyBinding) binding).nmuk_getAlternativesCount();
 								entries.add(i, altEntry);
 								break;
 							}
@@ -101,8 +105,8 @@ public class MixinKeyBindingEntry {
 	@SuppressWarnings("UnresolvedMixinReference")
 	@Inject(method = "method_19870(Lnet/minecraft/client/option/KeyBinding;Lnet/minecraft/client/gui/widget/ButtonWidget;)V", at = @At("HEAD"))
 	private void resetButtonPressed(KeyBinding keyBinding, ButtonWidget widget, CallbackInfo ci) {
-		if (((NMUKKeyBinding) keyBinding).getParent() == null && Screen.hasShiftDown()) {
-			List<KeyBinding> alternatives = ((NMUKKeyBinding) keyBinding).getAlternatives();
+		if (((NMUKKeyBinding) keyBinding).nmuk_getParent() == null && Screen.hasShiftDown()) {
+			List<KeyBinding> alternatives = ((NMUKKeyBinding) keyBinding).nmuk_getAlternatives();
 			List<KeyBinding> defaultAlternatives = new ArrayList<>(NMUKKeyBindingHelper.defaultAlternatives.get(keyBinding));
 			List<ControlsListWidget.KeyBindingEntry> entries = NMUKKeyBindingHelper.getControlsListWidgetEntries();
 			// noinspection ConstantConditions
@@ -113,7 +117,7 @@ public class MixinKeyBindingEntry {
 				KeyBinding alternative = iterator.next();
 				index = defaultAlternatives.indexOf(alternative);
 				if (index == -1) {
-					entries.remove(entryPos + 1 + ((NMUKKeyBinding) alternative).getIndexInParent());
+					entries.remove(entryPos + 1 + ((NMUKKeyBinding) alternative).nmuk_getIndexInParent());
 					iterator.remove();
 					NMUKKeyBindingHelper.removeKeyBinding(alternative);
 					continue;

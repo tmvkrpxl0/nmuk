@@ -17,29 +17,15 @@
 
 package de.siphalor.nmuk.impl.forge.mixin;
 
-import de.siphalor.nmuk.NMUK;
 import de.siphalor.nmuk.impl.NMUKKeyBinding;
-import de.siphalor.nmuk.impl.NMUKKeyBindingHelper;
-import de.siphalor.nmuk.impl.mixin.KeyBindingAccessor;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import org.apache.logging.log4j.Level;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Mixin(value = GameOptions.class, priority = 800)
 public class MixinGameOptionsForge {
@@ -58,7 +44,7 @@ public class MixinGameOptionsForge {
 	)
 	public void removeNMUKBindings(CallbackInfo ci) {
 		tempKeysAll = allKeys;
-		allKeys = Arrays.stream(allKeys).filter(binding -> !((NMUKKeyBinding) binding).isAlternative()).toArray(KeyBinding[]::new);
+		allKeys = Arrays.stream(allKeys).filter(binding -> !((NMUKKeyBinding) binding).nmuk_isAlternative()).toArray(KeyBinding[]::new);
 	}
 
 	@Inject(

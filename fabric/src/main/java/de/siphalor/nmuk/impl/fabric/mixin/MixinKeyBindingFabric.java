@@ -20,7 +20,6 @@ package de.siphalor.nmuk.impl.fabric.mixin;
 import de.siphalor.nmuk.impl.NMUKKeyBinding;
 import de.siphalor.nmuk.impl.mixin.KeyBindingAccessor;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,7 +35,7 @@ public abstract class MixinKeyBindingFabric implements NMUKKeyBinding {
             locals = LocalCapture.CAPTURE_FAILSOFT
     )
     private static void onKeyPressed(CallbackInfo callbackInfo, KeyBinding binding) {
-        KeyBinding parent = ((NMUKKeyBinding) binding).getParent();
+        KeyBinding parent = ((NMUKKeyBinding) binding).nmuk_getParent();
         if (parent != null) {
             ((KeyBindingAccessor) parent).setTimesPressed(((KeyBindingAccessor) parent).getTimesPressed() + 1);
             callbackInfo.cancel();

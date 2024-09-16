@@ -38,7 +38,7 @@ public abstract class MixinKeyBindingForge implements NMUKKeyBinding {
             locals = LocalCapture.CAPTURE_FAILSOFT
     )
     private static void onKeyPressed(InputUtil.Key key, CallbackInfo callbackInfo, Iterator var1, KeyBinding binding) {
-        KeyBinding parent = ((NMUKKeyBinding) binding).getParent();
+        KeyBinding parent = ((NMUKKeyBinding) binding).nmuk_getParent();
         if (parent != null) {
             ((KeyBindingAccessor) parent).setTimesPressed(((KeyBindingAccessor) parent).getTimesPressed() + 1);
             callbackInfo.cancel();

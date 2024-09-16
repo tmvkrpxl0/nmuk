@@ -25,12 +25,12 @@ import org.jetbrains.annotations.ApiStatus;
 public class AlternativeKeyBinding extends KeyBinding {
 	public AlternativeKeyBinding(KeyBinding parent, String translationKey, int code, String category) {
 		super(translationKey, code, category);
-		((NMUKKeyBinding) this).setParent(parent);
+		((NMUKKeyBinding) this).nmuk_setParent(parent);
 	}
 
 	public AlternativeKeyBinding(KeyBinding parent, String translationKey, InputUtil.Type type, int code, String category) {
 		super(translationKey, type, code, category);
-		((NMUKKeyBinding) this).setParent(parent);
+		((NMUKKeyBinding) this).nmuk_setParent(parent);
 	}
 
 	@Override

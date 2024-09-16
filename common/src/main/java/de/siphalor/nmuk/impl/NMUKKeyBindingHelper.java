@@ -95,8 +95,8 @@ public class NMUKKeyBindingHelper {
 
     public static KeyBinding createAlternativeKeyBinding(KeyBinding base, InputUtil.Type type, int code) {
         NMUKKeyBinding parent = (NMUKKeyBinding) base;
-        KeyBinding alt = new AlternativeKeyBinding(base, base.getTranslationKey() + "%" + parent.getNextChildId(), type, code, base.getCategory());
-        parent.addAlternative(alt);
+        KeyBinding alt = new AlternativeKeyBinding(base, base.getTranslationKey() + "%" + parent.nmuk_getNextChildId(), type, code, base.getCategory());
+        parent.nmuk_addAlternative(alt);
         return alt;
     }
 

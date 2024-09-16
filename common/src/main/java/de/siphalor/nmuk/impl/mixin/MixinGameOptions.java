@@ -34,7 +34,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -57,7 +56,7 @@ public class MixinGameOptions {
 	public void save(CallbackInfo ci) {
 		try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(nmukOptionsFile), StandardCharsets.UTF_8))) {
 			for (KeyBinding binding : allKeys) {
-				if (((NMUKKeyBinding) binding).isAlternative()) {
+				if (((NMUKKeyBinding) binding).nmuk_isAlternative()) {
 					printWriter.println("key_" + binding.getTranslationKey() + ":" + binding.getBoundKeyTranslationKey());
 				}
 			}
@@ -109,8 +108,8 @@ public class MixinGameOptions {
 					KeyBinding base = keyBindings.get(id);
 					if (base != null) {
 						int index = alternativeCountMap.getOrDefault(base, 0);
-						List<KeyBinding> children = ((NMUKKeyBinding) base).getAlternatives();
-						((NMUKKeyBinding) base).setNextChildId(altId);
+						List<KeyBinding> children = ((NMUKKeyBinding) base).nmuk_getAlternatives();
+						((NMUKKeyBinding) base).nmuk_setNextChildId(altId);
 						if (children == null) {
 							KeyBinding alternative = NMUKKeyBindingHelper.createAlternativeKeyBinding(base);
 							alternative.setBoundKey(boundKey);
@@ -137,9 +136,9 @@ public class MixinGameOptions {
 		int newCount, oldCount;
 		for (KeyBinding binding : allKeys) {
 			newCount = alternativeCountMap.getOrDefault(binding, 0);
-			oldCount = ((NMUKKeyBinding) binding).getAlternativesCount();
+			oldCount = ((NMUKKeyBinding) binding).nmuk_getAlternativesCount();
 			if (oldCount > newCount) {
-				List<KeyBinding> alternatives = ((NMUKKeyBinding) binding).getAlternatives();
+				List<KeyBinding> alternatives = ((NMUKKeyBinding) binding).nmuk_getAlternatives();
 				alternatives.subList(newCount, oldCount).clear();
 			}
 		}

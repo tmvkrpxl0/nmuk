@@ -24,23 +24,23 @@ import java.util.List;
 
 @ApiStatus.Internal
 public interface NMUKKeyBinding {
-	short getNextChildId();
+	short nmuk_getNextChildId();
 
-	void setNextChildId(short nextChildId);
+	void nmuk_setNextChildId(short nextChildId);
 
-	boolean isAlternative();
+	boolean nmuk_isAlternative();
 
-	KeyBinding getParent();
+	KeyBinding nmuk_getParent();
 
-	void setParent(KeyBinding binding);
+	void nmuk_setParent(KeyBinding binding);
 
-	List<KeyBinding> getAlternatives();
+	List<KeyBinding> nmuk_getAlternatives();
 
-	int getAlternativesCount();
+	int nmuk_getAlternativesCount();
 
-	void removeAlternative(KeyBinding binding);
+	void nmuk_removeAlternative(KeyBinding binding);
 
-	void addAlternative(KeyBinding binding);
+	void nmuk_addAlternative(KeyBinding binding);
 
-	int getIndexInParent();
+	int nmuk_getIndexInParent();
 }
